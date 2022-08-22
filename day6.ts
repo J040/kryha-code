@@ -23,9 +23,8 @@ for (let fish of fishes) {
 
 for (let day = 1; day <= days; day++) {
   let sum = fishesCycles.reduce((previous:number, current:number) => previous + current, 0)
-  // process.stdout.write(`Day: ${day} - Fishes: ${sum}\n`);
-  process.stdout.write(`${fishesCycles}\n`);
-  // console.log(`Day: ${day} - Fishes: ${sum}`);
+  // process.stdout.write(`[${fishesCycles}]\n`);
+  console.log(`Day: ${day} - Fishes: ${sum}`);
 
   let firstCycle = fishesCycles.slice(0,1);
   let restOfCycle = fishesCycles.slice(1,);
