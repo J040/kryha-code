@@ -2,16 +2,15 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 function getInputs() {
-  let boards:any = [];
-  let randomNumbers:any = [];
-  let inputs = readFileSync(join('./inputs', 'day4.txt'), 'utf-8');
-  let formattedInputs = inputs.split('\n');
+  let boards:any[][] = [];
+  let randomNumbers:number[] = [];
+  let inputs:string = readFileSync(join('./inputs', 'day4.txt'), 'utf-8');
+  let formattedInputs:string[] = inputs.split('\n');
   for (let [index, input] of formattedInputs.entries()) {
     if (index === 0) {
-      let splittedValues = input.split(',');
-      randomNumbers = splittedValues.map((number:string) => parseInt(number));
+      randomNumbers = input.split(',').map((number:string) => parseInt(number));
     } else if (input !== '') {
-      let splittedValues = input.trim().split(/\s+/g);
+      let splittedValues:number[] = input.trim().split(/\s+/g).map((number:string) => parseInt(number));
       boards[boards.length - 1].push(splittedValues);
     } else {
       boards.push([] as any);
@@ -21,7 +20,7 @@ function getInputs() {
 }
 
 function calculateScore(matrix:any, number:number) {
-  let sumOfNumbers = 0;
+  let sumOfNumbers:number = 0;
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] != 'X') {
@@ -29,12 +28,12 @@ function calculateScore(matrix:any, number:number) {
       }
     }
   }
-  let finalScore = sumOfNumbers * number;
+  let finalScore:number = sumOfNumbers * number;
   return { score: sumOfNumbers, finalScore: finalScore };
 }
 
 function isCompletedLine(line:any) {
-  const result = line.every((element:string) => {
+  const result:boolean = line.every((element:string) => {
     if (element === 'X') {
       return true;
     }
@@ -64,10 +63,10 @@ function checkRow(matrix:any, row:number, randomNumber:number) {
 
 function findWinner() {
   let { boards, randomNumbers } = getInputs();
-  let completedRow = false;
-  let completedColumn = false;
-  let winners = [];
-  let lastNumber = null;
+  let completedRow:boolean = false;
+  let completedColumn:boolean = false;
+  let winners:any[] = [];
+  let lastNumber:any = null;
 
   // CHECK WINNER(S)
   for (let number of randomNumbers) {
@@ -93,7 +92,7 @@ function findWinner() {
     console.log('Last "winner" "won" with the number:', lastNumber);
     console.log('Total of winners: ', winners.length);
     console.log('Matrix:', winners[winners.length - 1].matrix);
-    let scores = calculateScore(winners[winners.length - 1].matrix, lastNumber);
+    let scores:any = calculateScore(winners[winners.length - 1].matrix, lastNumber);
     console.log('Score: ', scores.score);
     console.log('Final Score: ', scores.finalScore);
   }

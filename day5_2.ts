@@ -2,14 +2,14 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 function getCoordinates() {
-  let inputs = readFileSync(join('./inputs', 'day5.txt'), 'utf-8');
-  let coordinates:any = [];
-  let formattedInputs = inputs.split('\n');
+  let inputs:string = readFileSync(join('./inputs', 'day5.txt'), 'utf-8');
+  let coordinates:any[] = [];
+  let formattedInputs:string[] = inputs.split('\n');
   for (let [index, input] of formattedInputs.entries()) {
-    let splittedValues = input.split(' -> ');
-    let coordinate = { x1: 0, y1: 0, x2: 0, y2: 0 };
+    let splittedValues:string[] = input.split(' -> ');
+    let coordinate:any = { x1: 0, y1: 0, x2: 0, y2: 0 };
     for (let [index, value] of splittedValues.entries()) {
-      let xy = value.trim().split(',');
+      let xy:string[] = value.trim().split(',');
       if (index == 0) {
         coordinate['x1'] = parseInt(xy[0]);
         coordinate['y1'] = parseInt(xy[1]);
@@ -24,8 +24,8 @@ function getCoordinates() {
 }
 
 function findDangerousCoordinates() {
-  let matrix:any = new Array(1000).fill(0).map(() => new Array(1000).fill(0));
-  let coordinates:any = getCoordinates();
+  let matrix:number[][] = new Array(1000).fill(0).map(() => new Array(1000).fill(0));
+  let coordinates:any[] = getCoordinates();
   
   for (let coordinate of coordinates) {
     
@@ -82,7 +82,7 @@ function findDangerousCoordinates() {
     }
   }
   
-  let dangerousCoordinates = 0;
+  let dangerousCoordinates:number = 0;
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0 ; x < matrix[y].length; x++) {
       if (matrix[y][x] > 1) {
